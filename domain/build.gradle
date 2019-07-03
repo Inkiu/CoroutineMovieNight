@@ -1,0 +1,16 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
+    implementation rootProject.ext.kotlin_base
+    implementation rootProject.ext.kotlin_coroutine
+    implementation rootProject.ext.kotlin_coroutine_android
+
+    // Tests
+    testImplementation rootProject.ext.junit
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"

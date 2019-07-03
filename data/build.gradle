@@ -1,32 +1,33 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
+
+
     defaultConfig {
-        applicationId "com.example.coroutinemovienight"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    // Android
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     // Kotlin
     implementation rootProject.ext.kotlin_base
@@ -41,12 +42,11 @@ dependencies {
     implementation rootProject.ext.dagger_android_support
     kapt rootProject.ext.dagger_android_support
 
+    // Modules
+    implementation project(':domain')
+
     // Tests
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.android_test_runner
     androidTestImplementation rootProject.ext.android_test_espresso
-
-    // Modules
-    implementation project(':data')
-    implementation project(':domain')
 }
