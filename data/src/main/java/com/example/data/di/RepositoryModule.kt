@@ -1,6 +1,7 @@
 package com.example.data.di
 
 import com.example.data.api.MovieApi
+import com.example.data.repositories.MoviesLocalSource
 import com.example.data.repositories.MoviesRemoteSource
 import com.example.data.repositories.MoviesRepositoryImpl
 import com.example.domain.MovieRepository
@@ -17,6 +18,7 @@ class RepositoryModule {
         movieApi: MovieApi
     ): MovieRepository {
         val remoteSource = MoviesRemoteSource(movieApi)
-        return MoviesRepositoryImpl(remoteSource)
+        val localSource = MoviesLocalSource()
+        return MoviesRepositoryImpl(localSource, remoteSource)
     }
 }
