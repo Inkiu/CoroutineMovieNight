@@ -1,17 +1,20 @@
 package com.example.coroutinemovienight.di
 
 import com.example.coroutinemovienight.App
+import com.example.data.di.DataModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
-        ActivityBindingModule::class
+        ActivityBindingModule::class,
+        DataModule::class
     ]
 )
 interface AppComponent : AndroidInjector<App> {
@@ -19,7 +22,14 @@ interface AppComponent : AndroidInjector<App> {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(application: App): AppComponent.Builder
+        fun application(application: App): Builder
+
+        @BindsInstance
+        fun apiKey(@Named("api_key") key: String): Builder
+
+        @BindsInstance
+        fun baseUrl(@Named("base_url") baseUrl: String): Builder
+
         fun build(): AppComponent
     }
 
