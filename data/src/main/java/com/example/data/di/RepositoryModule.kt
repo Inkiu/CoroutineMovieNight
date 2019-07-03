@@ -1,24 +1,16 @@
 package com.example.data.di
 
-import com.example.data.api.MovieApi
-import com.example.data.repositories.MoviesLocalSource
-import com.example.data.repositories.MoviesRemoteSource
 import com.example.data.repositories.MoviesRepositoryImpl
 import com.example.domain.MovieRepository
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class RepositoryModule {
+abstract class RepositoryModule {
 
-    @Provides
     @Singleton
-    fun provideMovieRepository(
-        movieApi: MovieApi
-    ): MovieRepository {
-        val remoteSource = MoviesRemoteSource(movieApi)
-        val localSource = MoviesLocalSource()
-        return MoviesRepositoryImpl(localSource, remoteSource)
-    }
+    @Binds
+    abstract fun bindsMovieRepository(moviesRepositoryImpl: MoviesRepositoryImpl): MovieRepository
+
 }

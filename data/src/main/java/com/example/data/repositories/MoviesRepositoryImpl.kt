@@ -4,8 +4,9 @@ import android.util.Log
 import com.example.domain.MovieRepository
 import com.example.domain.entities.MovieEntity
 import com.example.domain.entities.Optional
+import javax.inject.Inject
 
-class MoviesRepositoryImpl(
+class MoviesRepositoryImpl @Inject constructor(
     private val localDataSource: MoviesLocalSource,
     private val remoteDataSource: MoviesRemoteSource
 ) : MovieRepository {

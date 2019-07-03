@@ -1,8 +1,11 @@
 package com.example.data.repositories
 
 import com.example.domain.entities.MovieEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MoviesLocalSource {
+@Singleton
+class MoviesLocalSource @Inject constructor() {
 
     private val movies = LinkedHashMap<Int, MovieEntity>() // 순서
 

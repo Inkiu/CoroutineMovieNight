@@ -3,8 +3,11 @@ package com.example.data.repositories
 import com.example.data.api.MovieApi
 import com.example.data.mappers.MovieDataEntityMapper
 import com.example.domain.entities.MovieEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MoviesRemoteSource(
+@Singleton
+class MoviesRemoteSource @Inject constructor(
     private val api: MovieApi
 ) {
 
