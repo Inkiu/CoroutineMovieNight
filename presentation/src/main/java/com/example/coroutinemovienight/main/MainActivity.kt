@@ -1,7 +1,8 @@
-package com.example.coroutinemovienight
+package com.example.coroutinemovienight.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.coroutinemovienight.R
 
 class MainActivity : AppCompatActivity() {
 
