@@ -9,11 +9,13 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.coroutinemovienight.R
 import com.example.coroutinemovienight.common.BaseFragment
 import com.example.coroutinemovienight.common.BaseViewModel
+import com.example.coroutinemovienight.common.ImageLoader
 import javax.inject.Inject
 
 class PopularFragment : BaseFragment() {
 
     @Inject lateinit var vmFactory: PopularVMFactory
+    @Inject lateinit var imageLoader: ImageLoader
     private val viewModel: PopularViewModel by lazy {
         ViewModelProviders.of(this, vmFactory).get(PopularViewModel::class.java)
     }

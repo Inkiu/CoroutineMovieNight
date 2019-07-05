@@ -1,9 +1,17 @@
 package com.example.coroutinemovienight.di.main
 
+import android.content.Context
+import com.example.coroutinemovienight.common.GlideImageLoader
+import com.example.coroutinemovienight.common.ImageLoader
+import com.example.coroutinemovienight.di.ActivityContext
+import com.example.coroutinemovienight.di.PerActivity
 import com.example.coroutinemovienight.di.PerFragment
 import com.example.coroutinemovienight.di.main.popular.PopularModule
+import com.example.coroutinemovienight.main.MainActivity
 import com.example.coroutinemovienight.main.popular.PopularFragment
+import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 
 @Module
@@ -11,4 +19,13 @@ abstract class MainModule {
     @ContributesAndroidInjector(modules = [PopularModule::class])
     @PerFragment
     abstract fun popularFragment(): PopularFragment
+
+    @Binds
+    @PerActivity
+    @ActivityContext
+    abstract fun bindsActivityContext(activity: MainActivity): Context
+
+    @Binds
+    @PerActivity
+    abstract fun bindsImageLoader(glideImageLoader: GlideImageLoader): ImageLoader
 }
