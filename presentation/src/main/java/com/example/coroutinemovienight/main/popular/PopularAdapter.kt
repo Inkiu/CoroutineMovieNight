@@ -33,7 +33,8 @@ class PopularAdapter(
         holder.bind(movie, imageLoader, onMovieSelected)
     }
 
-    fun addMovies(movies: List<Movie>) {
+    fun replaceMovies(movies: List<Movie>) {
+        this.movies.clear()
         this.movies.addAll(movies)
         notifyDataSetChanged()
     }
