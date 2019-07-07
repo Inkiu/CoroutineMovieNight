@@ -25,7 +25,12 @@ class MoviesRepositoryImpl @Inject constructor(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getMovie(movieId: Int): Optional<MovieEntity> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getMovie(movieId: Int): MovieEntity {
+        var movie = localDataSource.get(movieId)
+        if (movie == null) {
+            movie = remoteDataSource.getMovie(movieId)
+            localDataSource.put(movie)
+        }
+        return movie
     }
 }

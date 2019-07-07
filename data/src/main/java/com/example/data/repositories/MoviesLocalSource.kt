@@ -7,13 +7,22 @@ import javax.inject.Singleton
 @Singleton
 class MoviesLocalSource @Inject constructor() {
 
-    private val movies = LinkedHashMap<Int, MovieEntity>() // 순서
+    private val popularMovies = LinkedHashMap<Int, MovieEntity>() // 순서
+    private val movies = mutableMapOf<Int, MovieEntity>()
 
     suspend fun getPopularMovies(): List<MovieEntity> {
-        return movies.values.toList()
+        return popularMovies.values.toList()
     }
 
     suspend fun putPopularMovies(movieEntities: List<MovieEntity>) {
-        movieEntities.forEach { movies[it.id] = it }
+        movieEntities.forEach { popularMovies[it.id] = it }
+    }
+
+    suspend fun get(movieId: Int): MovieEntity? {
+        return popularMovies[movieId] ?: movies[movieId]
+    }
+
+    suspend fun put(movie: MovieEntity) {
+        movies[movie.id] = movie.copy()
     }
 }
