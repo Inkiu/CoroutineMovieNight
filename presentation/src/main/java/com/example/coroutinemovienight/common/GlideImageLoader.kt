@@ -53,7 +53,7 @@ class GlideImageLoader @Inject constructor(
             isFirstResource: Boolean
         ): Boolean {
             delegate(true)
-            return true
+            return false
         }
     }
 }

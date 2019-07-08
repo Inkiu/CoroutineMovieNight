@@ -19,7 +19,7 @@ class MoviesLocalSource @Inject constructor() {
     }
 
     suspend fun get(movieId: Int): MovieEntity? {
-        return popularMovies[movieId] ?: movies[movieId]
+        return movies[movieId]
     }
 
     suspend fun put(movie: MovieEntity) {

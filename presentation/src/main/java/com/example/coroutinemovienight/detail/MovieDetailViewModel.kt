@@ -1,12 +1,55 @@
 package com.example.coroutinemovienight.detail
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
 import com.example.coroutinemovienight.common.BaseViewModel
+import com.example.coroutinemovienight.models.Movie
+import com.example.coroutinemovienight.models.mappers.MovieEntityMovieMapper
+import com.example.domain.usecases.GetMovieDetail
+import kotlinx.coroutines.launch
 
 class MovieDetailViewModel(
-
+    private val getMovieDetail: GetMovieDetail,
+    private val movieMapper: MovieEntityMovieMapper,
+    private val movieId: Int
 ) : BaseViewModel() {
+
+    val viewState: MutableLiveData<MovieDetailsViewState> = MutableLiveData()
+
+    init {
+        viewState.value = MovieDetailsViewState(isLoading = true)
+    }
+
+
     override fun onAttached() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        /* no-op */
+    }
+
+    fun getMovieDetails() {
+        launch {
+            val result = runCatching {
+                patchMovieDetail()
+            }
+            if (result.isSuccess && result.getOrNull() != null) {
+                val movie = result.getOrNull()!!
+                viewState.value = viewState.value?.copy(
+                    isLoading = false,
+                    title = movie.originalTitle,
+                    videos = movie.details?.videos,
+                    homepage = movie.details?.homepage,
+                    overview = movie.details?.overview,
+                    releaseDate = movie.releaseDate,
+                    votesAverage = movie.voteAverage,
+                    backdropUrl = movie.backdropPath,
+                    genres = movie.details?.genres)
+            } else {
+
+            }
+        }
+    }
+
+    private suspend fun patchMovieDetail(): Movie {
+        return getMovieDetail
+            .compose(GetMovieDetail.Param(movieId))
+            .let { movieMapper.mapFrom(it) }
     }
 }

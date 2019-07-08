@@ -1,5 +1,6 @@
 package com.example.coroutinemovienight.main.popular
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import com.example.coroutinemovienight.R
 import com.example.coroutinemovienight.common.BaseFragment
 import com.example.coroutinemovienight.common.BaseViewModel
 import com.example.coroutinemovienight.common.ImageLoader
+import com.example.coroutinemovienight.detail.MovieDetailActivity
+import com.example.coroutinemovienight.models.Movie
 import kotlinx.android.synthetic.main.fragment_popular.*
 import javax.inject.Inject
 
@@ -22,7 +25,7 @@ class PopularFragment : BaseFragment() {
     @Inject lateinit var imageLoader: ImageLoader
 
     private val adapter: PopularAdapter by lazy {
-        PopularAdapter(imageLoader) { _, _ -> /* no-op */ }
+        PopularAdapter(imageLoader) { movie, _ -> navigateMovieDetail(movie) }
     }
     private val viewModel: PopularViewModel by lazy {
         ViewModelProviders.of(this, vmFactory).get(PopularViewModel::class.java)
@@ -56,5 +59,9 @@ class PopularFragment : BaseFragment() {
         throwable?.let {
             Toast.makeText(activity, throwable.message, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun navigateMovieDetail(movie: Movie) {
+        startActivity(MovieDetailActivity.newIntent(requireContext(), movie.id, movie.posterPath))
     }
 }
