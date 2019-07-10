@@ -1,5 +1,6 @@
 package com.example.coroutinemovienight.detail
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.coroutinemovienight.common.BaseViewModel
 import com.example.coroutinemovienight.common.NonNullMutableLiveData
@@ -25,28 +26,20 @@ class MovieDetailViewModel(
     val viewState: NonNullMutableLiveData<MovieDetailsViewState> = NonNullMutableLiveData(MovieDetailsViewState(isLoading = true))
     val favoriteState : NonNullMutableLiveData<Boolean> = NonNullMutableLiveData(false)
 
-    override fun onAttached() {
-        /* no-op */
-    }
-
-    fun getMovieDetails() {
+    override fun onInitialAttached() {
         launch {
-            val favoriteDef = async {
-                runCatching { patchFavoriteState() }
-            }
-            val detailDef = async {
-                runCatching { patchMovieDetail() }
-            }
-
-            val favoriteResult = favoriteDef.await().getOrNull()
-            favoriteResult?.let {
+            val result = runCatching { patchFavoriteState() } 
+            result.getOrNull()?.let {
                 favoriteState.value = it
             } ?: {
+                Log.d("tmpLog", "onInitialAttached: ${result.exceptionOrNull()}")
                 // Error
             }()
 
-            val detailResult = detailDef.await().getOrNull()
-            detailResult?.let {
+        }
+        launch {
+            val result = runCatching { patchMovieDetail() }
+            result.getOrNull()?.let {
                 viewState.value = viewState.value.copy(
                     isLoading = false,
                     title = it.originalTitle,
@@ -56,8 +49,10 @@ class MovieDetailViewModel(
                     releaseDate = it.releaseDate,
                     votesAverage = it.voteAverage,
                     backdropUrl = it.backdropPath,
-                    genres = it.details?.genres)
+                    genres = it.details?.genres
+                )
             } ?: {
+                Log.d("tmpLog", "onInitialAttached: ${result.exceptionOrNull()}")
                 // Error
             }()
         }

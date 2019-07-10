@@ -12,7 +12,8 @@ abstract class BaseViewModel : ViewModel(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + supervisorJob + errorHandler
 
-    abstract fun onAttached()
+    open fun onAttached() {}
+    open fun onInitialAttached() {}
 
     override fun onCleared() {
         super.onCleared()

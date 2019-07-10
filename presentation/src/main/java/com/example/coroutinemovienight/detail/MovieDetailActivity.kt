@@ -11,6 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coroutinemovienight.R
+import com.example.coroutinemovienight.common.BaseActivity
+import com.example.coroutinemovienight.common.BaseViewModel
 import com.example.coroutinemovienight.common.ImageLoader
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_movie_detail.*
@@ -18,7 +20,7 @@ import kotlinx.android.synthetic.main.details_overview_section.*
 import kotlinx.android.synthetic.main.details_video_section.*
 import javax.inject.Inject
 
-class MovieDetailActivity : DaggerAppCompatActivity() {
+class MovieDetailActivity : BaseActivity() {
 
     @Inject
     lateinit var vmFactory: MovieDetailVMFactory
@@ -28,9 +30,11 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
         ViewModelProviders.of(this, vmFactory).get(MovieDetailViewModel::class.java)
     }
 
+    override fun getViewModel(): BaseViewModel = viewModel
+
     companion object {
-        private const val MOVIE_ID = "extra_movie_id"
-        private const val MOVIE_POSTER_URL: String = "extra_movie_poster_url"
+        const val MOVIE_ID = "extra_movie_id"
+        const val MOVIE_POSTER_URL: String = "extra_movie_poster_url"
 
         fun newIntent(context: Context, movieId: Int, posterUrl: String?): Intent {
             return Intent(context, MovieDetailActivity::class.java).apply {
@@ -45,19 +49,12 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_movie_detail)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE and View.SYSTEM_UI_FLAG_FULLSCREEN
 
-        vmFactory.movieId = intent.getIntExtra(MOVIE_ID, 0)
+//        vmFactory.movieId = intent.getIntExtra(MOVIE_ID, 0)
 
         intent.getStringExtra(MOVIE_POSTER_URL)?.let {
             imageLoader.load(it, details_poster) { }
         } ?: run { }
 
-
-        // If we don't have any entering transition
-        if (savedInstanceState != null) {
-//            observe()
-        } else {
-            viewModel.getMovieDetails()
-        }
         observe()
         setupViewFunctions()
     }

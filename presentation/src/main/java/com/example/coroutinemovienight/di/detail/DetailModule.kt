@@ -15,6 +15,7 @@ import com.example.domain.usecases.SaveFavoriteMovie
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 
 @Module
 abstract class DetailModule {
@@ -40,6 +41,12 @@ abstract class DetailModule {
         @Provides
         @PerActivity
         fun provideCheckFavoroteMovie(favoriteMovieRepository: FavoriteMovieRepository) = CheckFavoriteStatus(favoriteMovieRepository)
+
+        @JvmStatic
+        @Provides
+        @Named("movie_id")
+        @PerActivity
+        fun provideMovieId(detailActivity: MovieDetailActivity) = detailActivity.intent.getIntExtra(MovieDetailActivity.MOVIE_ID, 0)
     }
 
     @Binds

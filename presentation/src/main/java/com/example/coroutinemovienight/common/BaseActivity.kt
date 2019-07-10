@@ -1,10 +1,9 @@
 package com.example.coroutinemovienight.common
 
 import android.os.Bundle
-import dagger.android.support.DaggerFragment
+import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseFragment : DaggerFragment() {
-
+abstract class BaseActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {

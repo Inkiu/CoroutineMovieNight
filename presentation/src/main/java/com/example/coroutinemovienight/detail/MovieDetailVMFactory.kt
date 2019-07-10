@@ -8,16 +8,16 @@ import com.example.domain.usecases.GetMovieDetail
 import com.example.domain.usecases.RemoveFavoriteMovie
 import com.example.domain.usecases.SaveFavoriteMovie
 import javax.inject.Inject
+import javax.inject.Named
 
 class MovieDetailVMFactory @Inject constructor(
     private val getMovieDetail: GetMovieDetail,
     private val saveFavoriteMovie: SaveFavoriteMovie,
     private val removeFavoriteMovie: RemoveFavoriteMovie,
     private val checkFavoriteStatus: CheckFavoriteStatus,
-    private val movieMapper: MovieEntityMovieMapper
+    private val movieMapper: MovieEntityMovieMapper,
+    @Named("movie_id") private val movieId: Int
 ) : ViewModelProvider.Factory {
-
-    var movieId = 0
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return MovieDetailViewModel(

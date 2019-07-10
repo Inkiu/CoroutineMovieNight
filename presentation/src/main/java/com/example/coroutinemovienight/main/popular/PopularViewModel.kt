@@ -21,7 +21,7 @@ class PopularViewModel(
     val viewState: NonNullMutableLiveData<PopularViewState> = NonNullMutableLiveData(PopularViewState())
     val errorState: MutableLiveData<Throwable?> = SingleLiveEvent()
 
-    override fun onAttached() {
+    override fun onInitialAttached() {
         loadPopularMovies()
     }
 
