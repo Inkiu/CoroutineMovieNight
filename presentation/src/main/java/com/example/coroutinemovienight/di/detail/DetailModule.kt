@@ -8,6 +8,7 @@ import com.example.coroutinemovienight.di.ActivityContext
 import com.example.coroutinemovienight.di.PerActivity
 import com.example.domain.FavoriteMovieRepository
 import com.example.domain.MovieRepository
+import com.example.domain.usecases.CheckFavoriteStatus
 import com.example.domain.usecases.GetMovieDetail
 import com.example.domain.usecases.RemoveFavoriteMovie
 import com.example.domain.usecases.SaveFavoriteMovie
@@ -34,6 +35,11 @@ abstract class DetailModule {
         @Provides
         @PerActivity
         fun provideRemoveFavoriteMovie(favoriteMovieRepository: FavoriteMovieRepository) = RemoveFavoriteMovie(favoriteMovieRepository)
+
+        @JvmStatic
+        @Provides
+        @PerActivity
+        fun provideCheckFavoroteMovie(favoriteMovieRepository: FavoriteMovieRepository) = CheckFavoriteStatus(favoriteMovieRepository)
     }
 
     @Binds
