@@ -3,6 +3,7 @@ package com.example.coroutinemovienight.main.popular
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.coroutinemovienight.common.BaseViewModel
+import com.example.coroutinemovienight.common.NonNullMutableLiveData
 import com.example.coroutinemovienight.common.SingleLiveEvent
 import com.example.coroutinemovienight.models.Movie
 import com.example.data.mappers.Mapper
@@ -17,12 +18,8 @@ class PopularViewModel(
     private val mapper: Mapper<MovieEntity, Movie>
 ) : BaseViewModel() {
 
-    val viewState: MutableLiveData<PopularViewState> = MutableLiveData()
+    val viewState: NonNullMutableLiveData<PopularViewState> = NonNullMutableLiveData(PopularViewState())
     val errorState: MutableLiveData<Throwable?> = SingleLiveEvent()
-
-    init {
-        viewState.value = PopularViewState()
-    }
 
     override fun onAttached() {
         loadPopularMovies()
@@ -39,7 +36,7 @@ class PopularViewModel(
             if (moviesResult.isSuccess) {
                 viewState.value = PopularViewState(false, moviesResult.getOrDefault(emptyList()))
             } else {
-                viewState.value = viewState.value?.copy(showLoading = false)
+                viewState.value = viewState.value.copy(showLoading = false)
                 errorState.value = moviesResult.exceptionOrNull()
             }
         }

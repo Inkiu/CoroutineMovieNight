@@ -2,6 +2,7 @@ package com.example.coroutinemovienight.detail
 
 import androidx.lifecycle.MutableLiveData
 import com.example.coroutinemovienight.common.BaseViewModel
+import com.example.coroutinemovienight.common.NonNullMutableLiveData
 import com.example.coroutinemovienight.models.Movie
 import com.example.coroutinemovienight.models.mappers.MovieEntityMovieMapper
 import com.example.domain.entities.MovieEntity
@@ -21,14 +22,8 @@ class MovieDetailViewModel(
     private val movieId: Int
 ) : BaseViewModel() {
 
-    val viewState: MutableLiveData<MovieDetailsViewState> = MutableLiveData()
-    val favoriteState : MutableLiveData<Boolean> = MutableLiveData()
-
-    init {
-        viewState.value = MovieDetailsViewState(isLoading = true)
-        favoriteState.value = false
-    }
-
+    val viewState: NonNullMutableLiveData<MovieDetailsViewState> = NonNullMutableLiveData(MovieDetailsViewState(isLoading = true))
+    val favoriteState : NonNullMutableLiveData<Boolean> = NonNullMutableLiveData(false)
 
     override fun onAttached() {
         /* no-op */
@@ -52,7 +47,7 @@ class MovieDetailViewModel(
 
             val detailResult = detailDef.await().getOrNull()
             detailResult?.let {
-                viewState.value = viewState.value?.copy(
+                viewState.value = viewState.value.copy(
                     isLoading = false,
                     title = it.originalTitle,
                     videos = it.details?.videos,
@@ -70,10 +65,9 @@ class MovieDetailViewModel(
 
     fun onToggleFavorite() {
         launch {
-            val isFavorite = favoriteState.value == true
-            val func = if (isFavorite) removeFavorite()
+            val func = if (favoriteState.value) removeFavorite()
             else saveFavorite()
-            if (func) favoriteState.value = !isFavorite
+            if (func) favoriteState.value = !favoriteState.value
         }
     }
 

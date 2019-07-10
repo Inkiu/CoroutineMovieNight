@@ -48,11 +48,9 @@ class PopularFragment : BaseFragment() {
         viewModel.errorState.observe(this, Observer { handleError(it) })
     }
 
-    private fun handleState(viewState: PopularViewState?) {
-        viewState?.let {
-            popularMovieProgress.visibility = if (viewState.showLoading) View.VISIBLE else View.INVISIBLE
-            adapter.replaceMovies(viewState.movies)
-        }
+    private fun handleState(viewState: PopularViewState) {
+        popularMovieProgress.visibility = if (viewState.showLoading) View.VISIBLE else View.INVISIBLE
+        adapter.replaceMovies(viewState.movies)
     }
 
     private fun handleError(throwable: Throwable?) {

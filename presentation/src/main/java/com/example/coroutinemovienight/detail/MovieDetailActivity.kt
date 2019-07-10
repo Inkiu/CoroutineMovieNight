@@ -73,9 +73,7 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
         viewModel.favoriteState.observe(this, Observer { state -> handleFavoriteState(state) })
     }
 
-    private fun handleViewState(state: MovieDetailsViewState?) {
-        if (state == null) return
-
+    private fun handleViewState(state: MovieDetailsViewState) {
         details_title.text = state.title
         details_overview.text = state.overview
         details_release_date.text = String.format(getString(R.string.release_date_template, state.releaseDate))
@@ -107,8 +105,7 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
         }
     }
 
-    private fun handleFavoriteState(favorite: Boolean?) {
-        if (favorite == null) return
+    private fun handleFavoriteState(favorite: Boolean) {
         details_favorite_fab.visibility = View.VISIBLE
         details_favorite_fab.setImageDrawable(
             if (favorite) ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_36dp)
