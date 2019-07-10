@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coroutinemovienight.R
 import com.example.coroutinemovienight.common.ImageLoader
-import com.example.coroutinemovienight.common.SimpleTransitionEndedCallback
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.android.synthetic.main.details_overview_section.*
@@ -59,10 +59,18 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
             viewModel.getMovieDetails()
         }
         observe()
+        setupViewFunctions()
+    }
+
+    private fun setupViewFunctions() {
+        details_favorite_fab.setOnClickListener {
+            viewModel.onToggleFavorite()
+        }
     }
 
     private fun observe() {
         viewModel.viewState.observe(this, Observer { viewState -> handleViewState(viewState) })
+        viewModel.favoriteState.observe(this, Observer { state -> handleFavoriteState(state) })
     }
 
     private fun handleViewState(state: MovieDetailsViewState?) {
@@ -97,6 +105,15 @@ class MovieDetailActivity : DaggerAppCompatActivity() {
         } ?: run {
             details_video_section.visibility = View.GONE
         }
+    }
+
+    private fun handleFavoriteState(favorite: Boolean?) {
+        if (favorite == null) return
+        details_favorite_fab.visibility = View.VISIBLE
+        details_favorite_fab.setImageDrawable(
+            if (favorite) ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_36dp)
+            else ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_36dp)
+        )
     }
 
 }
