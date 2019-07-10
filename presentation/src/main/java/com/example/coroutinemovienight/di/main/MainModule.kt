@@ -11,7 +11,6 @@ import com.example.coroutinemovienight.main.MainActivity
 import com.example.coroutinemovienight.main.popular.PopularFragment
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 
 @Module

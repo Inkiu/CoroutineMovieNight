@@ -5,10 +5,14 @@ import com.example.coroutinemovienight.common.BaseViewModel
 import com.example.coroutinemovienight.models.Movie
 import com.example.coroutinemovienight.models.mappers.MovieEntityMovieMapper
 import com.example.domain.usecases.GetMovieDetail
+import com.example.domain.usecases.RemoveFavoriteMovie
+import com.example.domain.usecases.SaveFavoriteMovie
 import kotlinx.coroutines.launch
 
 class MovieDetailViewModel(
     private val getMovieDetail: GetMovieDetail,
+    private val saveFavoriteMovie: SaveFavoriteMovie,
+    private val removeFavoriteMovie: RemoveFavoriteMovie,
     private val movieMapper: MovieEntityMovieMapper,
     private val movieId: Int
 ) : BaseViewModel() {

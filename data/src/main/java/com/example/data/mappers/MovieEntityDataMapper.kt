@@ -2,8 +2,11 @@ package com.example.data.mappers
 
 import com.example.data.entities.MovieData
 import com.example.domain.entities.MovieEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MovieEntityDataMapper : Mapper<MovieEntity, MovieData> {
+@Singleton
+class MovieEntityDataMapper @Inject constructor() : Mapper<MovieEntity, MovieData> {
 
     override fun mapFrom(from: MovieEntity): MovieData {
         return MovieData(

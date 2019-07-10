@@ -1,5 +1,6 @@
 package com.example.coroutinemovienight.di
 
+import android.app.Application
 import com.example.coroutinemovienight.App
 import com.example.data.di.DataModule
 import dagger.BindsInstance
@@ -24,6 +25,9 @@ interface AppComponent : AndroidInjector<App> {
     interface Builder {
         @BindsInstance
         fun application(application: App): Builder
+
+        @BindsInstance
+        fun app(application: Application): Builder
 
         @BindsInstance
         fun apiKey(@Named("api_key") key: String): Builder

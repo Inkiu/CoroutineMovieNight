@@ -6,8 +6,11 @@ import com.example.coroutinemovienight.common.ImageLoader
 import com.example.coroutinemovienight.detail.MovieDetailActivity
 import com.example.coroutinemovienight.di.ActivityContext
 import com.example.coroutinemovienight.di.PerActivity
+import com.example.domain.FavoriteMovieRepository
 import com.example.domain.MovieRepository
 import com.example.domain.usecases.GetMovieDetail
+import com.example.domain.usecases.RemoveFavoriteMovie
+import com.example.domain.usecases.SaveFavoriteMovie
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,6 +24,16 @@ abstract class DetailModule {
         @Provides
         @PerActivity
         fun provideGetPopularMovie(movieRepository: MovieRepository) = GetMovieDetail(movieRepository)
+
+        @JvmStatic
+        @Provides
+        @PerActivity
+        fun provideSaveFavoriteMovie(favoriteMovieRepository: FavoriteMovieRepository) = SaveFavoriteMovie(favoriteMovieRepository)
+
+        @JvmStatic
+        @Provides
+        @PerActivity
+        fun provideRemoveFavoriteMovie(favoriteMovieRepository: FavoriteMovieRepository) = RemoveFavoriteMovie(favoriteMovieRepository)
     }
 
     @Binds
