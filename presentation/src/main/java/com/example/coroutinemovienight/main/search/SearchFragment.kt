@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.example.coroutinemovienight.R
 import com.example.coroutinemovienight.common.BaseFragment
 import com.example.coroutinemovienight.common.BaseViewModel
 import com.example.coroutinemovienight.common.ImageLoader
+import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.item_searched_movie.*
 import javax.inject.Inject
@@ -62,6 +64,15 @@ class SearchFragment : BaseFragment() {
 
     private fun handleState(viewState: SearchViewState) {
         searchMovieProgress.visibility = if (viewState.isLoading) View.VISIBLE else View.INVISIBLE
+        searchResultEmpty.text = when {
+            viewState.isLoading || viewState.query.isEmpty() -> ""
+            else -> String.format(getString(R.string.search_no_results_message, viewState.query))
+        }
+        searchResultEmpty.visibility = when {
+            viewState.isLoading -> View.INVISIBLE
+            else -> View.VISIBLE
+        }
+        searchResultEmpty.visibility = if (viewState.movies.isEmpty()) View.VISIBLE else View.INVISIBLE
         adapter.setResults(viewState.movies, viewState.query)
     }
 

@@ -6,6 +6,7 @@ import android.view.MenuItem
 import com.example.coroutinemovienight.R
 import com.example.coroutinemovienight.main.favorites.FavoriteFragment
 import com.example.coroutinemovienight.main.popular.PopularFragment
+import com.example.coroutinemovienight.main.search.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -45,10 +46,10 @@ class MainActivity : DaggerAppCompatActivity(), BottomNavigationView.OnNavigatio
             }
 
             R.id.action_search -> {
-//                supportFragmentManager.beginTransaction()
-//                    .replace(R.id.container, SearchFragment(), "search")
-//                    .commitNow()
-//                title = getString(R.string.search)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, SearchFragment(), "search")
+                    .commitNow()
+                title = getString(R.string.search)
             }
         }
         return true

@@ -24,7 +24,7 @@ class SearchResultAdapter constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieCellViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(
+        val view = LayoutInflater.from(parent.context).inflate(
             R.layout.item_searched_movie,
             parent,
             false

@@ -9,6 +9,7 @@ import com.example.coroutinemovienight.di.PerFragment
 import com.example.coroutinemovienight.main.MainActivity
 import com.example.coroutinemovienight.main.favorites.FavoriteFragment
 import com.example.coroutinemovienight.main.popular.PopularFragment
+import com.example.coroutinemovienight.main.search.SearchFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -22,6 +23,10 @@ abstract class MainModule {
     @ContributesAndroidInjector(modules = [FavoriteModule::class])
     @PerFragment
     abstract fun favoriteFragment(): FavoriteFragment
+
+    @ContributesAndroidInjector(modules = [SearchModule::class])
+    @PerFragment
+    abstract fun searchFragment(): SearchFragment
 
     @Binds
     @PerActivity
