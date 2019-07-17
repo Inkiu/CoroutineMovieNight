@@ -18,6 +18,7 @@ import com.example.coroutinemovienight.detail.MovieDetailActivity
 import com.example.coroutinemovienight.models.Movie
 import kotlinx.android.synthetic.main.fragment_popular.*
 import javax.inject.Inject
+import kotlin.reflect.KClass
 
 class PopularFragment : BaseFragment() {
 
