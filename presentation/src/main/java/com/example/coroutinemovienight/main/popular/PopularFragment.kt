@@ -58,8 +58,4 @@ class PopularFragment : BaseFragment() {
             Toast.makeText(activity, throwable.message, Toast.LENGTH_LONG).show()
         }
     }
-
-    private fun navigateMovieDetail(movie: Movie) {
-        startActivity(MovieDetailActivity.newIntent(requireContext(), movie.id, movie.posterPath))
-    }
 }
