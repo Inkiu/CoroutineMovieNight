@@ -21,6 +21,12 @@ class MoviesRemoteSource @Inject constructor(
         }
     }
 
+    suspend fun getSearchedMovies(str: String): List<MovieEntity> {
+        return api.searchMovies(str).movies.map {
+            movieDataMapper.mapFrom(it)
+        }
+    }
+
     suspend fun getMovie(movieId: Int): MovieEntity {
         return api.getMovieDetails(movieId).let {
             detailDataMapper.mapFrom(it)

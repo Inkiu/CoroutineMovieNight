@@ -22,7 +22,7 @@ class MoviesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun search(query: String): List<MovieEntity> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return remoteDataSource.getSearchedMovies(query)
     }
 
     override suspend fun getMovie(movieId: Int): MovieEntity {
