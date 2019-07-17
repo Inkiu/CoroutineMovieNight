@@ -1,4 +1,4 @@
-package com.example.coroutinemovienight.di.main.popular
+package com.example.coroutinemovienight.di.main
 
 import com.example.coroutinemovienight.di.PerFragment
 import com.example.domain.MovieRepository

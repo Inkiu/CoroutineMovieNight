@@ -23,7 +23,7 @@
         tools:visibility="visible"/>
 
     <ProgressBar
-        android:id="@+id/favoriteMoviesProgess"
+        android:id="@+id/favoriteMoviesProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>

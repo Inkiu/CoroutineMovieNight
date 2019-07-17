@@ -34,7 +34,7 @@ class FavoriteAdapter(
         holder.bind(movie, imageLoader, onMovieSelected)
     }
 
-    fun setMovies(movies: List<Movie>) {
+    fun replaceMovies(movies: List<Movie>) {
         this.movies = movies
         notifyDataSetChanged()
     }
