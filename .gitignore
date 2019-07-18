@@ -24,3 +24,6 @@ proguard/
 *.iml
 # Files for the app sign
 .keystore
+
+# private info
+*api_key.xml
