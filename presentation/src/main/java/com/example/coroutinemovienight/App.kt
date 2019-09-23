@@ -9,7 +9,7 @@ class App : DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent
             .builder()
-            .application(this)
+            .applicationContext(this)
             .apiKey(getString(R.string.movie_api_key))
             .baseUrl(getString(R.string.api_base_url))
             .build()

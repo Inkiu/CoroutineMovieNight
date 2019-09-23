@@ -25,7 +25,7 @@ interface AppComponent : AndroidInjector<App> {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(application: Application): Builder
+        fun applicationContext(@Named("ApplicationContext") applicationContext: Context): Builder
 
         @BindsInstance
         fun apiKey(@Named("api_key") key: String): Builder

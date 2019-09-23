@@ -10,8 +10,4 @@ import javax.inject.Singleton
 
 @Module
 abstract class AppModule {
-    @Binds
-    @Singleton
-    @Named("ApplicationContext")
-    abstract fun bindsApplicationContext(application: Application): Context
 }
