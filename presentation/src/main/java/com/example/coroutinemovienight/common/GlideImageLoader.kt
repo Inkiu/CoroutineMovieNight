@@ -9,11 +9,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.example.coroutinemovienight.di.ActivityContext
 import javax.inject.Inject
+import javax.inject.Named
 
 class GlideImageLoader @Inject constructor(
-    @ActivityContext private val context: Context
+    @Named("ActivityContext") private val context: Context
 ) : ImageLoader {
 
     private val glide = Glide.with(context)

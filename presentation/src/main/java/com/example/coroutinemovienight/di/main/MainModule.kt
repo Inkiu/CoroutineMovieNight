@@ -3,7 +3,6 @@ package com.example.coroutinemovienight.di.main
 import android.content.Context
 import com.example.coroutinemovienight.common.GlideImageLoader
 import com.example.coroutinemovienight.common.ImageLoader
-import com.example.coroutinemovienight.di.ActivityContext
 import com.example.coroutinemovienight.di.PerActivity
 import com.example.coroutinemovienight.di.PerFragment
 import com.example.coroutinemovienight.main.MainActivity
@@ -13,6 +12,7 @@ import com.example.coroutinemovienight.main.search.SearchFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import javax.inject.Named
 
 @Module
 abstract class MainModule {
@@ -30,7 +30,7 @@ abstract class MainModule {
 
     @Binds
     @PerActivity
-    @ActivityContext
+    @Named("ActivityContext")
     abstract fun bindsActivityContext(activity: MainActivity): Context
 
     @Binds

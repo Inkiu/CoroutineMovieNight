@@ -4,7 +4,6 @@ import android.content.Context
 import com.example.coroutinemovienight.common.GlideImageLoader
 import com.example.coroutinemovienight.common.ImageLoader
 import com.example.coroutinemovienight.detail.MovieDetailActivity
-import com.example.coroutinemovienight.di.ActivityContext
 import com.example.coroutinemovienight.di.PerActivity
 import com.example.domain.FavoriteMovieRepository
 import com.example.domain.MovieRepository
@@ -51,7 +50,7 @@ abstract class DetailModule {
 
     @Binds
     @PerActivity
-    @ActivityContext
+    @Named("ActivityContext")
     abstract fun bindsActivityContext(activity: MovieDetailActivity): Context
 
     @Binds
