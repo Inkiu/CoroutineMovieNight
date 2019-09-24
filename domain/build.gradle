@@ -12,6 +12,9 @@ dependencies {
 
     // Tests
     testImplementation rootProject.ext.junit
+    testImplementation rootProject.ext.mockito
+    testImplementation rootProject.ext.hamcrest
+    testImplementation rootProject.ext.coroutine_test
 }
 
 sourceCompatibility = "7"
