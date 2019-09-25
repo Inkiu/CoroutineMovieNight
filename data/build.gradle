@@ -57,9 +57,13 @@ dependencies {
 
     // Modules
     implementation project(':domain')
+    testImplementation project(path: ':domain', configuration: 'testRuntime')
 
     // Tests
     testImplementation rootProject.ext.junit
+    testImplementation rootProject.ext.mockito
+    testImplementation rootProject.ext.hamcrest
+    testImplementation rootProject.ext.coroutine_test
     androidTestImplementation rootProject.ext.android_test_runner
     androidTestImplementation rootProject.ext.android_test_espresso
 }

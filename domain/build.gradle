@@ -17,5 +17,15 @@ dependencies {
     testImplementation rootProject.ext.coroutine_test
 }
 
+// https://stackoverflow.com/questions/31814812/how-to-share-test-classes-across-gradle-projects
+task testJar(type: Jar) {
+    archiveClassifier.set('test')
+    from sourceSets.test.output
+}
+
+artifacts {
+    testRuntime testJar
+}
+
 sourceCompatibility = "7"
 targetCompatibility = "7"
