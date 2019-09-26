@@ -64,6 +64,9 @@ dependencies {
     testImplementation rootProject.ext.mockito
     testImplementation rootProject.ext.hamcrest
     testImplementation rootProject.ext.coroutine_test
+    androidTestImplementation rootProject.ext.androidx_test
+    androidTestImplementation rootProject.ext.mockito
+    androidTestImplementation rootProject.ext.coroutine_test
     androidTestImplementation rootProject.ext.android_test_runner
     androidTestImplementation rootProject.ext.android_test_espresso
 }
