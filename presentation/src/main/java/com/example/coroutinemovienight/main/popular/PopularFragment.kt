@@ -45,8 +45,8 @@ class PopularFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.viewState.observe(this, Observer { handleState(it) })
-        viewModel.errorState.observe(this, Observer { handleError(it) })
+        viewModel.viewState.observe(this.viewLifecycleOwner, Observer { handleState(it) })
+        viewModel.errorState.observe(this.viewLifecycleOwner, Observer { handleError(it) })
     }
 
     private fun handleState(viewState: PopularViewState) {
