@@ -28,8 +28,7 @@ class PopularViewModel(
     private fun loadPopularMovies() {
         launch {
             val moviesResult = runCatching {
-                getPopularMovies
-                    .compose(Unit)
+                getPopularMovies(Unit)
                     .map { mapper.mapFrom(it) }
             }
 

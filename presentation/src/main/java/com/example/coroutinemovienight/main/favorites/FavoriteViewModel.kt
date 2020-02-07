@@ -25,8 +25,7 @@ class FavoriteViewModel(
         launch {
             viewState.value = viewState.value.copy(showLoading = true)
             val moviesResult = runCatching {
-                getFavoriteMovies
-                    .compose(Unit)
+                getFavoriteMovies(Unit)
                     .map { mapper.mapFrom(it) }
             }
 

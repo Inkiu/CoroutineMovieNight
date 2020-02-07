@@ -67,25 +67,20 @@ class MovieDetailViewModel(
     }
 
     private suspend fun patchMovieDetail(): Movie {
-        return getMovieDetail
-            .compose(GetMovieDetail.Param(movieId))
+        return getMovieDetail(GetMovieDetail.Param(movieId))
             .let { movieMapper.mapFrom(it) }
     }
 
     private suspend fun patchFavoriteState(): Boolean {
-        return checkFavoriteStatus
-            .compose(CheckFavoriteStatus.Param(movieId))
+        return checkFavoriteStatus(CheckFavoriteStatus.Param(movieId))
     }
 
     private suspend fun saveFavorite(): Boolean {
-        val movieEn = getMovieDetail
-            .compose(GetMovieDetail.Param(movieId))
-        return saveFavoriteMovie
-            .compose(SaveFavoriteMovie.Param(movieEn))
+        val movieEn = getMovieDetail(GetMovieDetail.Param(movieId))
+        return saveFavoriteMovie(SaveFavoriteMovie.Param(movieEn))
     }
 
     private suspend fun removeFavorite(): Boolean {
-        return removeFavoriteMovie
-            .compose(RemoveFavoriteMovie.Param(movieId))
+        return removeFavoriteMovie(RemoveFavoriteMovie.Param(movieId))
     }
 }

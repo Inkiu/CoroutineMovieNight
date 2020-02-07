@@ -54,8 +54,7 @@ class SearchViewModel(
         launch {
             _movieData.value = _movieData.value.copy(isLoading = true)
             val result = runCatching {
-                searchMovies
-                    .compose(SearchMovies.Param(query))
+                searchMovies(SearchMovies.Param(query))
                     .map { mapper.mapFrom(it) }
             }
             if (result.isSuccess) {
