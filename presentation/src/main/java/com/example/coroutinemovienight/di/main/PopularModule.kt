@@ -1,6 +1,7 @@
 package com.example.coroutinemovienight.di.main
 
 import com.example.coroutinemovienight.di.PerFragment
+import com.example.domain.FavoriteMovieRepository
 import com.example.domain.MovieRepository
 import com.example.domain.usecases.GetPopularMovies
 import dagger.Module
@@ -10,5 +11,8 @@ import dagger.Provides
 class PopularModule {
     @Provides
     @PerFragment
-    fun provideGetPopularMovie(movieRepository: MovieRepository) = GetPopularMovies(movieRepository)
+    fun provideGetPopularMovie(
+        movieRepository: MovieRepository,
+        favoriteRepository: FavoriteMovieRepository
+    ) = GetPopularMovies(movieRepository, favoriteRepository)
 }
