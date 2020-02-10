@@ -46,7 +46,7 @@ class FavoriteMovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun isEmpty(): Boolean {
-        return localDataSource.count() > 0
+        return localDataSource.count() <= 0
     }
 
     override suspend fun remove(movieId: Int) {
