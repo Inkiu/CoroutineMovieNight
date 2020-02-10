@@ -1,4 +1,4 @@
-package com.example.data.repositories
+package com.example.data.datasource
 
 import com.example.data.api.MovieApi
 import com.example.data.mappers.DetailsDataMovieEntityMapper

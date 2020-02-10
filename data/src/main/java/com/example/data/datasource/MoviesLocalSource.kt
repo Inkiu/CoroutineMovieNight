@@ -1,4 +1,4 @@
-package com.example.data.repositories
+package com.example.data.datasource
 
 import com.example.domain.entities.MovieEntity
 import javax.inject.Inject
