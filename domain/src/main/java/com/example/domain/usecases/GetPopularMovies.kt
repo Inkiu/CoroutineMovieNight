@@ -6,17 +6,20 @@ import com.example.domain.entities.MovieEntity
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class GetPopularMovies(
     private val movieRepository: MovieRepository,
     private val favoriteRepository: FavoriteMovieRepository
-) : UseCase<Unit, List<MovieEntity>> {
+) : UseCase<Unit, Flow<List<MovieEntity>>> {
 
-    override suspend fun invoke(param: Unit): List<MovieEntity> {
+    override suspend fun invoke(param: Unit): Flow<List<MovieEntity>> {
         return coroutineScope {
             val favorite = async { favoriteRepository.getAll() }
-            val popular = async { movieRepository.getPopularMovies() }
-            favorite.await() + popular.await()
+            movieRepository.getPopularMoviesAsFlow().map {
+                favorite.await() + it
+            }
         }
     }
 
