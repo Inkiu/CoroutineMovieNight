@@ -1,28 +1,26 @@
 package com.example.data.repositories
 
-import com.example.data.db.FavoriteMovieDatabase
-import com.example.data.entities.MovieData
-import com.example.data.mappers.Mapper
+import com.example.data.datasource.FavoriteLocalDataSource
+import com.example.data.mappers.MovieDataEntityMapper
+import com.example.data.mappers.MovieEntityDataMapper
 import com.example.domain.FavoriteMovieRepository
 import com.example.domain.entities.MovieEntity
 import javax.inject.Inject
 
 class FavoriteMovieRepositoryImpl @Inject constructor(
-    database: FavoriteMovieDatabase,
-    private val entityToDataMapper: Mapper<MovieEntity, MovieData>,
-    private val dataToEntityMapper: Mapper<MovieData, MovieEntity>
+    private val localDataSource: FavoriteLocalDataSource,
+    private val entityToDataMapper: MovieEntityDataMapper,
+    private val dataToEntityMapper: MovieDataEntityMapper
 ) : FavoriteMovieRepository {
-
-    private val dao = database.getFavoriteMovieDao()
 
     override suspend fun save(movieEntity: MovieEntity) {
         entityToDataMapper.mapFrom(movieEntity).let {
-            dao.saveMovie(it)
+            localDataSource.save(listOf(it))
         }
     }
 
     override suspend fun saveAll(moviesEntities: List<MovieEntity>) {
-        dao.saveAllMovies(
+        localDataSource.save(
             moviesEntities.map {
                 entityToDataMapper.mapFrom(it)
             }
@@ -30,32 +28,32 @@ class FavoriteMovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun get(movieId: Int): MovieEntity? {
-        return dao.get(movieId)?.let {
+        return localDataSource.get(movieId)?.let {
             dataToEntityMapper.mapFrom(it)
         }
     }
 
     override suspend fun getAll(): List<MovieEntity> {
-        return dao.getFavorites().map {
+        return localDataSource.getAll().map {
             dataToEntityMapper.mapFrom(it)
         }
     }
 
     override suspend fun search(query: String): List<MovieEntity> {
-        return dao.search(query).map {
+        return localDataSource.search(query).map {
             dataToEntityMapper.mapFrom(it)
         }
     }
 
     override suspend fun isEmpty(): Boolean {
-        return dao.getFavorites().isEmpty()
+        return localDataSource.count() > 0
     }
 
     override suspend fun remove(movieId: Int) {
-        dao.removeMovie(movieId)
+        localDataSource.remove(movieId)
     }
 
     override suspend fun clear() {
-        dao.clear()
+        localDataSource.removeAll()
     }
 }

@@ -4,8 +4,7 @@ import com.example.domain.entities.MovieEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class MoviesLocalSource @Inject constructor() {
+class MoviesLocalSource {
 
     private val popularMovies = LinkedHashMap<Int, MovieEntity>() // 순서
     private val movies = mutableMapOf<Int, MovieEntity>()
