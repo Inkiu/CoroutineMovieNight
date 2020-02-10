@@ -15,6 +15,9 @@ interface FavoriteMovieDao {
     @Query("SELECT * FROM movies WHERE title LIKE :query")
     suspend fun search(query: String): List<MovieData>
 
+    @Query("SELECT COUNT(*) FROM movies")
+    suspend fun count(): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveMovie(movie: MovieData)
 
@@ -22,8 +25,8 @@ interface FavoriteMovieDao {
     suspend fun saveAllMovies(movies: List<MovieData>)
 
     @Query("DELETE FROM movies WHERE id=:movieId")
-    suspend fun removeMovie(movieId: Int)
+    suspend fun removeMovie(movieId: Int): Int
 
     @Query("DELETE FROM movies")
-    suspend fun clear()
+    suspend fun clear(): Int
 }

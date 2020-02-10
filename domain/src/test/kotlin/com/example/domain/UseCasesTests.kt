@@ -6,8 +6,6 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.Matchers.*
 import org.junit.Test
 import org.junit.Assert.assertThat
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import java.lang.RuntimeException
 
@@ -19,7 +17,7 @@ class UseCasesTests {
         val movieRepository = mock(MovieRepository::class.java)
         val getMovieDetail = GetMovieDetail(movieRepository)
 
-        `when`(movieRepository.getMovie(100)).thenReturn(movieEntity)
+        `when`(movieRepository.getMovieDetail(100)).thenReturn(movieEntity)
 
         val result = getMovieDetail(GetMovieDetail.Param(100))
         assertThat(result, `is`(notNullValue()))
