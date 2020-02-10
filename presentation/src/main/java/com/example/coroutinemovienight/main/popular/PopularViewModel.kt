@@ -10,6 +10,8 @@ import com.example.data.mappers.Mapper
 import com.example.domain.entities.MovieEntity
 import com.example.domain.usecases.GetPopularMovies
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -21,23 +23,24 @@ class PopularViewModel(
     val viewState: NonNullMutableLiveData<PopularViewState> = NonNullMutableLiveData(PopularViewState())
     val errorState: MutableLiveData<Throwable?> = SingleLiveEvent()
 
+    @ExperimentalCoroutinesApi
     override fun onInitialAttached() {
         loadPopularMovies()
     }
 
+    @ExperimentalCoroutinesApi
     private fun loadPopularMovies() {
         launch {
-            val moviesResult = runCatching {
-                getPopularMovies(Unit)
-                    .map { mapper.mapFrom(it) }
-            }
-
-            if (moviesResult.isSuccess) {
-                viewState.value = PopularViewState(false, moviesResult.getOrDefault(emptyList()))
-            } else {
-                viewState.value = viewState.value.copy(showLoading = false)
-                errorState.value = moviesResult.exceptionOrNull()
-            }
+            getPopularMovies(Unit)
+                .map { it.map { mapper.mapFrom(it) } }
+                .onEach { viewState.value = PopularViewState(false, it) }
+                .handleError()
+                .collect()
         }
+    }
+
+    @ExperimentalCoroutinesApi
+    private fun <T> Flow<T>.handleError(): Flow<T> = catch { e ->
+        errorState.value = e
     }
 }
