@@ -17,7 +17,7 @@ class GetPopularMovies(
     override suspend fun invoke(param: Unit): Flow<List<MovieEntity>> {
         return coroutineScope {
             val favorite = async { favoriteRepository.getAll() }
-            movieRepository.getPopularMoviesAsFlow().map {
+            movieRepository.getPopularMovies().map {
                 favorite.await() + it
             }
         }
