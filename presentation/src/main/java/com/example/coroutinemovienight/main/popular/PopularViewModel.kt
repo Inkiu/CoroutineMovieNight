@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.coroutinemovienight.common.BaseViewModel
 import com.example.coroutinemovienight.common.NonNullMutableLiveData
 import com.example.coroutinemovienight.common.SingleLiveEvent
+import com.example.coroutinemovienight.common.handleError
 import com.example.coroutinemovienight.models.Movie
 import com.example.data.mappers.Mapper
 import com.example.domain.entities.MovieEntity
@@ -34,13 +35,8 @@ class PopularViewModel(
             getPopularMovies(Unit)
                 .map { it.map { mapper.mapFrom(it) } }
                 .onEach { viewState.value = PopularViewState(false, it) }
-                .handleError()
+                .handleError { errorState.value = it }
                 .collect()
         }
-    }
-
-    @ExperimentalCoroutinesApi
-    private fun <T> Flow<T>.handleError(): Flow<T> = catch { e ->
-        errorState.value = e
     }
 }
