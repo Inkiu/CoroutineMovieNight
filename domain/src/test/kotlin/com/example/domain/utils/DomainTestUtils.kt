@@ -3,6 +3,9 @@ import com.example.domain.entities.MovieDetailsEntity
 import com.example.domain.entities.MovieEntity
 import com.example.domain.entities.ReviewEntity
 import com.example.domain.entities.VideoEntity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 /**
  * Created by Yossi Segev on 09/02/2018.
@@ -45,6 +48,13 @@ class DomainTestUtils {
 
         fun generateMovieEntityList(): List<MovieEntity> {
             return (0..4).map { getTestMovieEntity(it) }
+        }
+
+        fun generateMovieEntityFlow(): Flow<List<MovieEntity>> = flow {
+            delay(10L)
+            emit(generateMovieEntityList())
+            delay(100L)
+            emit(generateMovieEntityList())
         }
     }
 }

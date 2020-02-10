@@ -2,6 +2,10 @@ package com.example.domain
 
 import com.example.domain.usecases.*
 import com.example.domain.utils.DomainTestUtils
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.Matchers.*
 import org.junit.Test
@@ -27,23 +31,35 @@ class UseCasesTests {
     @Test
     fun getPopularMovies() = runBlockingTest {
         val movieRepository = mock(MovieRepository::class.java)
-        val getPopularMovies = GetPopularMovies(movieRepository)
+        val favoriteRepository = mock(FavoriteMovieRepository::class.java)
+        val getPopularMovies = GetPopularMovies(movieRepository, favoriteRepository)
 
-        `when`(movieRepository.getPopularMovies()).thenReturn(DomainTestUtils.generateMovieEntityList())
+        `when`(favoriteRepository.getAll()).thenReturn(DomainTestUtils.generateMovieEntityList().subList(1, 3)) // 2
+        `when`(movieRepository.getPopularMovies()).thenReturn(DomainTestUtils.generateMovieEntityFlow()) // 5
 
-        val result = getPopularMovies(Unit)
-        assertThat(result.size, equalTo(5))
+        launch {
+            getPopularMovies(Unit)
+                .collect { result ->
+                    assertThat(result.size, equalTo(7))
+                }
+        }.join()
     }
 
     @Test
     fun getPopularMoviesNoResultsReturnsEmpty() = runBlockingTest {
         val movieRepository = mock(MovieRepository::class.java)
-        val getPopularMovies = GetPopularMovies(movieRepository)
+        val favoriteRepository = mock(FavoriteMovieRepository::class.java)
+        val getPopularMovies = GetPopularMovies(movieRepository, favoriteRepository)
 
-        `when`(movieRepository.getPopularMovies()).thenReturn(emptyList())
+        `when`(favoriteRepository.getAll()).thenReturn(emptyList())
+        `when`(movieRepository.getPopularMovies()).thenReturn(flow { emit(emptyList()) })
 
-        val result = getPopularMovies(Unit)
-        assert(result.isEmpty())
+        launch {
+            getPopularMovies(Unit)
+                .collect { result ->
+                    assert(result.isEmpty())
+                }
+        }.join()
     }
 
     @Test
