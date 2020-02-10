@@ -24,13 +24,11 @@ class PopularViewModel(
     val viewState: NonNullMutableLiveData<PopularViewState> = NonNullMutableLiveData(PopularViewState())
     val errorState: MutableLiveData<Throwable?> = SingleLiveEvent()
 
-    @ExperimentalCoroutinesApi
     override fun onInitialAttached() {
         loadPopularMovies()
     }
 
-    @ExperimentalCoroutinesApi
-    private fun loadPopularMovies() {
+    fun loadPopularMovies() {
         launch {
             getPopularMovies(Unit)
                 .map { it.map { mapper.mapFrom(it) } }
