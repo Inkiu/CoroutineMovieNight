@@ -12,7 +12,7 @@ class MoviesRepositoryImpl @Inject constructor(
     private val remoteDataSource: MoviesRemoteSource
 ) : MovieRepository {
 
-    override suspend fun getPopularMovies(): List<MovieEntity> {
+    override suspend fun getPopularMovies(): List<MovieEntity> { // TODO - flow
         var movies = localDataSource.getPopularMovies()
         if (movies.isEmpty()) {
             Log.d("tmpLog", "getPopularMovies: From Remote Source")

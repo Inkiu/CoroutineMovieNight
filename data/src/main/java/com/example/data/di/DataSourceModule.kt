@@ -7,6 +7,9 @@ import com.example.data.datasource.FavoriteLocalDataSource
 import com.example.data.datasource.MoviesLocalSource
 import com.example.data.datasource.MoviesRemoteSource
 import com.example.data.db.FavoriteMovieDatabase
+import com.example.data.db.PopularMovieDatabase
+import com.example.data.mappers.MovieDataEntityMapper
+import com.example.data.mappers.MovieEntityDataMapper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
@@ -27,7 +30,17 @@ class DataSourceModule {
 
     @Provides
     @Singleton
-    fun providesMovieLocalSource() : MoviesLocalSource = MoviesLocalSource()
+    fun providesMovieLocalSource(
+        @Named("ApplicationContext") applicationContext: Context,
+        entityToDataMapper: MovieEntityDataMapper,
+        dataToEntityDataMapper: MovieDataEntityMapper
+    ) : MoviesLocalSource {
+        return MoviesLocalSource(
+            Room.databaseBuilder(applicationContext, PopularMovieDatabase::class.java, "popular_movie_db").build(),
+            dataToEntityDataMapper,
+            entityToDataMapper
+        )
+    }
 
     @Provides
     @Singleton
