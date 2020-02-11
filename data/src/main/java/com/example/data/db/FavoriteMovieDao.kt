@@ -12,7 +12,7 @@ interface FavoriteMovieDao {
     @Query("SELECT * FROM movies WHERE id=:movieId")
     suspend fun get(movieId: Int): MovieData?
 
-    @Query("SELECT * FROM movies WHERE title LIKE :query")
+    @Query("SELECT * FROM movies WHERE title LIKE '%'||:query||'%'")
     suspend fun search(query: String): List<MovieData>
 
     @Query("SELECT COUNT(*) FROM movies")
