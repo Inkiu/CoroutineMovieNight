@@ -15,7 +15,7 @@ import org.junit.Test
  */
 class MapperTest {
     @Test
-    fun testMappingMovieDataToMovieEntityReturnsExpectedResult() {
+    fun test01_mapping_movie_data_to_movie_entity() {
         val movieData = getMockedMovieData(4242)
         val mapper = MovieDataEntityMapper()
         val movieEntity = mapper.mapFrom(movieData)
@@ -35,8 +35,7 @@ class MapperTest {
     }
 
     @Test
-    fun testMappingDetailDataToMovieEntityReturnsExpectedResult() {
-
+    fun test02_test_mapping_detail_to_movie_entity() {
         val mapper = DetailsDataMovieEntityMapper()
 
         generateDetailDataList(100).forEach { detailsData ->
@@ -95,7 +94,7 @@ class MapperTest {
     }
 
     @Test
-    fun testMappingMovieEntityToMovieReturnsExpectedResult() {
+    fun test03_mapping_movie_entity_to_movie_data() {
         val movieEntity = DomainTestUtils.getTestMovieEntity(2)
         val movieEntityDataMapper = MovieEntityDataMapper()
         val movieData = movieEntityDataMapper.mapFrom(movieEntity)

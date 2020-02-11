@@ -38,7 +38,7 @@ class FavoriteLocalSourceTest {
     }
 
     @Test
-    fun test01WhenSavingFavoriteAndReadSavedData() = runBlocking {
+    fun test01_read_saved_data_after_save_favorite_movies() = runBlocking {
         dataSource.save(movieDataList)
         assertEquals(movieDataList.size, dataSource.getAll().size)
 
@@ -46,7 +46,7 @@ class FavoriteLocalSourceTest {
     }
 
     @Test
-    fun test02WhenSearchTitle() = runBlocking {
+    fun test02_not_empty_search_movies() = runBlocking {
         assertEquals(movieDataList.size, dataSource.getAll().size)
         val keyword = pickedMovieData.title.substring(2, 5)
         val dataSourceResult = dataSource.search(keyword)
@@ -54,7 +54,7 @@ class FavoriteLocalSourceTest {
     }
 
     @Test
-    fun test03WhenRemoveAllFavoriteAndZeroReturn() = runBlocking {
+    fun test03_zero_result_when_all_favorite_removed() = runBlocking {
         assertEquals(movieDataList.size, dataSource.getAll().size)
 
         dataSource.remove(pickedMovieData.id)
