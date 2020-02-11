@@ -11,11 +11,9 @@ import com.example.data.entities.VideoData
 import com.example.data.mappers.DetailsDataMovieEntityMapper
 import com.example.data.mappers.MovieDataEntityMapper
 import com.example.data.mappers.MovieEntityDataMapper
-import com.example.domain.entities.MovieEntity
 import com.example.domain.entities.VideoEntity
 import com.example.domain.utils.DomainTestUtils
 import org.junit.Assert.*
-import org.mockito.Mockito
 
 /**
  * Created by Yossi Segev on 20/01/2018.

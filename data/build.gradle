@@ -24,6 +24,11 @@ android {
         }
     }
 
+    sourceSets {
+        test.java.srcDirs += 'src/sharedTest'
+        androidTest.java.srcDirs += 'src/sharedTest'
+    }
+
 }
 
 dependencies {
