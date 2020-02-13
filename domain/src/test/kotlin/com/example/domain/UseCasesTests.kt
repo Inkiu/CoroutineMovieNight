@@ -16,7 +16,7 @@ import java.lang.RuntimeException
 class UseCasesTests {
 
     @Test
-    fun getMovieDetailById() = runBlockingTest {
+    fun test01_getMovieDetailById_returns_expected_values() = runBlockingTest {
         val movieEntity = DomainTestUtils.getTestMovieEntity(100)
         val movieRepository = mock(MovieRepository::class.java)
         val getMovieDetail = GetMovieDetail(movieRepository)
@@ -29,7 +29,7 @@ class UseCasesTests {
     }
 
     @Test
-    fun getPopularMovies() = runBlockingTest {
+    fun test02_getPopularMovies_returns_expected_value() = runBlockingTest {
         val movieRepository = mock(MovieRepository::class.java)
         val favoriteRepository = mock(FavoriteMovieRepository::class.java)
         val getPopularMovies = GetPopularMovies(movieRepository, favoriteRepository)
@@ -46,7 +46,7 @@ class UseCasesTests {
     }
 
     @Test
-    fun getPopularMoviesNoResultsReturnsEmpty() = runBlockingTest {
+    fun test03_getPopularMovies_returns_empty_when_no_result() = runBlockingTest {
         val movieRepository = mock(MovieRepository::class.java)
         val favoriteRepository = mock(FavoriteMovieRepository::class.java)
         val getPopularMovies = GetPopularMovies(movieRepository, favoriteRepository)
@@ -63,7 +63,7 @@ class UseCasesTests {
     }
 
     @Test
-    fun checkFavoriteStatus() = runBlockingTest {
+    fun test04_checkFavoriteStatus() = runBlockingTest {
         val favoriteMovieRepository = mock(FavoriteMovieRepository::class.java)
         val checkFavoriteStatus = CheckFavoriteStatus(favoriteMovieRepository)
 
@@ -78,7 +78,7 @@ class UseCasesTests {
     }
 
     @Test
-    fun saveAndGetFavoriteMovie() = runBlockingTest {
+    fun test05_get_favorite_movies_after_save_favorite_movie() = runBlockingTest {
         val favoriteMovieRepository = mock(FavoriteMovieRepository::class.java)
         val saveFavoriteMovie = SaveFavoriteMovie(favoriteMovieRepository)
         val getFavoriteMovie = GetFavoriteMovies(favoriteMovieRepository)
@@ -103,7 +103,7 @@ class UseCasesTests {
     }
 
     @Test
-    fun removeFavoriteMovie() = runBlockingTest {
+    fun test_06_removeFavoriteMovie_returns_expected_state() = runBlockingTest {
         val favoriteMovieRepository = mock(FavoriteMovieRepository::class.java)
         val removeFavoriteMovie = RemoveFavoriteMovie(favoriteMovieRepository)
         val getFavoriteMovie = GetFavoriteMovies(favoriteMovieRepository)
@@ -133,7 +133,7 @@ class UseCasesTests {
     }
 
     @Test
-    fun searchMovies() = runBlockingTest {
+    fun test07_searchMovies_returns_expected_values() = runBlockingTest {
         val movieRepository = mock(MovieRepository::class.java)
         val searchMovie = SearchMovies(movieRepository)
         `when`(movieRepository.search("test query")).thenReturn(DomainTestUtils.generateMovieEntityList())
